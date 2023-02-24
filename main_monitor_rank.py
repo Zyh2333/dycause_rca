@@ -83,6 +83,7 @@ def relaToRank(rela, access, rankPaces, frontend, rho=0.3, print_trace=False):
 
 
 def test_monitor_rank(
+    i,
     data_source="real_micro_service",
     pc_aggregate=5,
     pc_alpha=0.1,
@@ -118,7 +119,7 @@ def test_monitor_rank(
     # Use raw_data, data_head if it is provided in kws
     if 'data' not in kws:
         data, data_head = load(
-            os.path.join("data", data_source, "rawdata.xlsx"),
+            os.path.join("data", data_source, "rawdata-" + str(i) + ".xlsx"),
             normalize=True,
             zero_fill_method='prevlatter',
             aggre_delta=pc_aggregate,
@@ -149,7 +150,7 @@ def test_monitor_rank(
     
     # When PC dep_graph isn't given, use PC algorithm
     if 'dep_graph' not in kws:
-        if data_source == "pymicro":
+        if data_source == "pymicro" or data_source == "microIRC":
             # Real call topology matrix
             dep_graph = readExl(os.path.join("data", data_source, "true_callgraph.xlsx"))
         elif data_source == "real_micro_service":

@@ -112,6 +112,7 @@ def correlation_algorithm(scores, access):
 
 
 def test_tbac(
+    i,
     data_source="pymicro", 
     pc_aggregate=5, 
     pc_alpha=0.1, 
@@ -138,7 +139,7 @@ def test_tbac(
     # Use raw_data, data_head if it is provided in kws
     if 'data' not in kws:
         data, data_head = load(
-            os.path.join("data", data_source, "rawdata.xlsx"),
+            os.path.join("data", data_source, "rawdata-" + str(i) + ".xlsx"),
             normalize=True,
             zero_fill_method='prevlatter',
             aggre_delta=pc_aggregate,
@@ -173,7 +174,7 @@ def test_tbac(
         if data_source == "pymicro":
             # Real call topology matrix
             access = readExl(os.path.join("data", data_source, "true_access.xlsx"))
-        elif data_source == "real_micro_service":
+        elif data_source == "real_micro_service" or data_source == 'microIRC':
             # If it is not in runtime_debug mode and cached file exists, load previous constructed graph
             if os.path.exists(access_filepath) and not runtime_debug:
                 # If previous dependency graph exists, load it.

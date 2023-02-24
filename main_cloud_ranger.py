@@ -104,6 +104,7 @@ def relaToRank(rela, access, rankPaces, frontend, beta=0.1, rho=0.3, print_trace
 
 
 def test_cloud_ranger(
+    i,
     data_source="real_micro_service",
     pc_aggregate=5,
     pc_alpha=0.1,
@@ -140,7 +141,7 @@ def test_cloud_ranger(
     # if raw_data not provided in kws
     if 'data' not in kws:
         data, data_head = load(
-            os.path.join("data", data_source, "rawdata.xlsx"),
+            os.path.join("data", data_source, "rawdata-" + str(i) + ".xlsx"),
             normalize=True,
             zero_fill_method='prevlatter',
             aggre_delta=pc_aggregate,

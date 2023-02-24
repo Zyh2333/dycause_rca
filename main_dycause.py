@@ -33,6 +33,7 @@ from util_funcs.excel_utils import saveToExcel
 
 
 def test_dycause(
+    i,
     # Data params
     data_source="real_micro_service",
     aggre_delta=1,
@@ -86,7 +87,7 @@ def test_dycause(
     # If data not provided in kws, in shape [T, N]
     if 'data' not in kws:
         data, data_head = load(
-            os.path.join("data", data_source, "rawdata.xlsx"),
+            os.path.join("data", data_source, "rawdata-" + str(i) + ".xlsx"),
             normalize=True,
             zero_fill_method='prevlatter',
             aggre_delta=aggre_delta,

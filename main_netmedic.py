@@ -12,6 +12,7 @@ from netmedic.compute_functions import *
 
 
 def test_netmedic(
+    i,
     data_source="real_micro_service",
     history_range=(0, -100),
     current_range=(-100, None),
@@ -45,7 +46,7 @@ def test_netmedic(
     # if data not provided in kws
     if 'data' not in kws:
         data, data_head = load(
-            os.path.join("data", data_source, "rawdata.xlsx"),
+            os.path.join("data", data_source, "rawdata-" + str(i) + ".xlsx"),
             normalize=True,
             zero_fill_method='prevlatter',
             aggre_delta=pc_aggregate,
@@ -78,7 +79,7 @@ def test_netmedic(
         # Build dependency graph either from ground truth or by PC
         if data_source == "pymicro":
             dep_graph = readExl(os.path.join("data", data_source, "true_access.xlsx"))
-        elif data_source == "real_micro_service":
+        elif data_source == "real_micro_service" or data_source == "microIRC":
             # If it is not in runtime_debug mode and cached file exists, 
             # load previous constructed graph
             if os.path.exists(dep_graph_filepath) and not runtime_debug:
